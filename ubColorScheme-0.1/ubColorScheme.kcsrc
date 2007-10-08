@@ -1,0 +1,27 @@
+[Color Scheme]
+Name=ubColorScheme
+activeBackground=65,101,148
+activeBlend=0,40,74
+activeForeground=255,255,255
+activeTitleBtnBg=66,103,148
+alternateBackground=0,66,123
+background=66,103,148
+buttonBackground=66,103,148
+buttonForeground=255,255,255
+contrast=8
+foreground=0,46,74
+frame=66,103,148
+handle=66,103,148
+inactiveBackground=66,103,148
+inactiveBlend=74,113,164
+inactiveForeground=0,42,78
+inactiveFrame=66,103,148
+inactiveHandle=66,103,148
+inactiveTitleBtnBg=66,103,148
+linkColor=0,255,255
+selectBackground=92,179,255
+selectForeground=0,0,0
+shadeSortColumn=true
+visitedLinkColor=192,192,255
+windowBackground=0,42,74
+windowForeground=220,220,220

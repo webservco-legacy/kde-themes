@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE superkaramba_theme>
+<superkaramba_theme>
+	<themefile>ublook.theme</themefile>
+	<python_module></python_module>
+	<name>ublook</name>
+	<icon>tux.png</icon>
+	<description>Based on the linux-look monitor theme. Customized for own needs. Hope it's helpful for someone.</description>
+	<author>Radu Maier</author>
+	<author_email>maier.ir@gmail.com</author_email>
+	<homepage>http://underbeat.evonet.ro</homepage>
+	<version>0.1</version>
+	<license>GPL</license>
+</superkaramba_theme>

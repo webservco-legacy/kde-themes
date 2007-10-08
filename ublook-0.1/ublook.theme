@@ -1,0 +1,152 @@
+karamba x=100 y=210 w=301 h=701 interval=1000 locked=true
+defaultfont color=255,255,255 fontsize=10 font="Sans Serif" shadow=1 bgcolor=0,0,01
+image x=0 y=0 path="images/background.png"
+
+################################################################################
+#Information about the computer
+text x=20 y=20 value="OS"
+text x=130 y=20 sensor=program program="cat /etc/slackware-version"
+text x=20 y=35 value="Kernel"
+text x=130 y=35 sensor=program program="uname -r"
+text x=20 y=50 value="Architecture"
+text x=130 y=50 sensor=program program="uname -m"
+text x=20 y=65 value="KDE / QT"
+text x=130 y=65 sensor=program program="kde-config --version | grep KDE | sed -e 's/.*: //'"
+text x=160 y=65 value="/"
+text x=170 y=65 sensor=program program="kde-config --version | grep Qt | sed -e 's/.*: //'"
+text x=20 y=80 value="Date / time"
+text x=130 y=80 sensor=time format="ddd dd.MM.yyyy  /  hh:mm:ss" interval=1000
+text x=20 y=95 value="User"
+text x=130 y=95 sensor=program program="whoami" interval=30000
+
+###############################################################################
+# GPU
+
+text x=20 y=110 value="Temp GPU"
+text x=130 y=110 sensor=program program="nvidia-settings -q gpucoretemp  |grep '):' | awk '{print $4}'" interval=10000
+text x=144 y=110 value="0 °C"
+bar x=130 y=125 w=20 h=0 path="images/bar4.png" max=100. interval=10000 sensor=program program="nvidia-settings -q gpucoretemp  | grep '):' | awk '{print $4}'"
+
+###############################################################################
+# CPU
+#text x=30 y=188 value="CPU Temp:"
+#text x=150 y=188 sensor=sensor type="M/B Temp" format="%v CÂ°"
+#text x=30 y=201 value="CPU Fan:"
+#text x=150 y=201 sensor=sensor type="fan3" format="%v RPM"
+
+#Kind of CPU
+text x=20 y=140 sensor=program program="cat /proc/cpuinfo | grep 'vendor_id' | sed -e 's/.*: //' | line 1" fontsize=12
+text x=20 y=158 sensor=program program="cat /proc/cpuinfo | grep 'model name' | sed -e 's/.*: //' | line 1"
+
+#Clock CPU 1
+text x=20 y=175 value="CPU 1"
+text x=110 y=175 sensor=program program="cat /proc/cpuinfo | grep 'cpu MHz' | sed -e 's/.*: //'| sed -e 's/\..../ MHz/' | line 1" interval=600000
+text x=170 y=175 sensor=program program="cat /proc/cpuinfo | grep 'cache size' | sed -e 's/.*: //' | line 1" interval=600000
+
+#Clock CPU 2
+text x=20 y=192 value="CPU 2"
+text x=110 y=192 sensor=program program="cat /proc/cpuinfo | grep 'cpu MHz' | sed -e 's/.*: //'| sed -e 's/\..../ MHz/' | line 2" interval=600000
+text x=170 y=192 sensor=program program="cat /proc/cpuinfo | grep 'cache size' | sed -e 's/.*: //' | line 2" interval=6000
+
+#Clock CPU 1 graph
+image x=103 y=210 path="images/grill.png"
+text x=20 y=230 value="CPU 1" fontsize=12
+text x=70 y=232 sensor=cpu cpu=0 format="%v%" interval=1000
+graph x=107 y=208 w=150 h=50 points=100 color=247,1,1 sensor=cpu format="%system" cpu=0 interval=1000
+graph x=107 y=209 w=150 h=50 points=100 color=1,247,1 sensor=cpu format="%user" cpu=0 interval=1000
+
+#Clock CPU 2 graph
+image x=103 y=270 path="images/grill.png"
+text x=20 y=290 value="CPU 2" fontsize=12
+text x=70 y=292 sensor=cpu cpu=1 format="%v%" interval=1000
+graph x=107 y=268 w=150 h=50 points=100 color=247,1,1 sensor=cpu format="%system" cpu=1 interval=1000
+graph x=107 y=269 w=150 h=50 points=100 color=1,247,1 sensor=cpu format="%user" cpu=1 interval=1000
+
+################################################################################
+#Net informations
+
+#eth0 speed
+image x=103 y=330 path="images/grill.png"
+text x=30 y=350 value="eth0" fontsize=12
+
+text x=30 y=390 value="Down / Up"
+text x=108 y=390 sensor=network device="eth0" format="%in kB/s" interval=1000 decimals=2 color=1,247,1
+text x=180 y=390 sensor=network device="eth0" format="%out kB/s" interval=1000 decimals=2 color=247,1,1
+text x=30 y=405 value="IP"
+text x=108 y=405 sensor=program program="/sbin/ifconfig eth0 | grep 'inet ' | cut -d : -f2 | cut -d ' ' -f1" interval=600000
+
+#eth0 speed graph
+graph x=107 y=339 w=150 h=40 color=247,1,1 points=100 sensor=network format="%out" device="eth0" max=25
+graph x=107 y=330 w=150 h=50 color=1,247,1 points=100 sensor=network format="%in" device="eth0" max=40
+
+#eth1 speed
+#image x=103 y=416 path="images/grill.png"
+#text x=30 y=436 value="eth1" fontsize=12
+
+#text x=30 y=474 value="Down / Up"
+#text x=108 y=474 sensor=network device="eth1" format="%in kB/s" interval=1000 decimals=2 color=1,247,1
+#text x=180 y=474 sensor=network device="eth1" format="%out kB/s" interval=1000 decimals=2 color=247,1,1
+#text x=30 y=488 value="IP"
+#text x=108 y=488 sensor=program program="/sbin/ifconfig eth1 | grep 'inet ' | cut -d : -f2 | cut -d ' ' -f1" interval=600000
+
+#eth1 speed graph
+#graph x=107 y=425 w=150 h=40 color=247,1,1 points=100 sensor=network format="%out" device="eth1" max=250
+#graph x=107 y=416 w=150 h=50 color=1,247,1 points=100 sensor=network format="%in" device="eth1" max=700
+
+################################################################################
+#HDs and RAM informations
+
+#RAM
+text x=60 y=430 value="Ram"
+text x=150 y=430 sensor=memory format="%umb / %tm Mb"
+bar  x=50  y=445 path="images/barra.png" sensor=memory format="%umb" interval=1000
+image x=49  y=444 path="images/barrab.png"
+
+#Swap
+text x=60 y=460 value="Swap"
+text x=150 y=460 sensor=memory format="%us / %ts Mb"
+bar  x=50  y=475 path="images/barra.png" sensor=memory format="%us" interval=10000
+image x=49  y=474 path="images/barrab.png"
+
+#HD Kubuntu
+text x=60 y=490 value="System"
+text x=150 y=490 sensor=disk format="%u / %t Mb" mountpoint="/"
+bar   x=50  y=505 path="images/barra.png" sensor=disk mountpoint="/" interval=100000
+image x=49  y=504 path="images/barrab.png"
+
+#HD Windows
+text x=60 y=520 value="Home"
+text x=150 y=520 sensor=disk format="%u / %t Mb" mountpoint="/home"
+bar   x=50  y=535 path="images/barra.png" sensor=disk mountpoint="/home" interval=100000
+image x=49  y=534 path="images/barrab.png"
+
+
+###############################################################################
+#AmaroK controls
+
+#Buttons images
+image x=20 y=620 path="images/player_start.png"
+image x=45 y=620 path="images/player_stop.png"
+image x=70 y=620 path="images/player_play.png"
+image x=95 y=620 path="images/player_end.png"
+image x=120 y=620 path="images/player_volume_up.png"
+image x=145 y=620 path="images/player_volume_down.png"
+#image x=0 y=0 path="images/glow.png
+
+#Click-areas
+clickarea x=20 y=620 h=22 w=22 preview=false onclick="amarok -r" name="Previous"
+clickarea x=45 y=620 h=22 w=22 preview=false onclick="amarok -s" name="Stop"
+clickarea x=70 y=620 h=22 w=22 preview=false onclick="amarok -t" name="Play"
+clickarea x=95 y=620 h=22 w=22 preview=false onclick="amarok -f" name="Next"
+clickarea x=120 y=620 h=22 w=22 preview=false onclick="dcop amarok player volumeUp" name="VolumeUp"
+clickarea x=145 y=620 h=22 w=22 preview=false onclick="dcop amarok player volumeDown" name="VolumeDown"
+
+
+#Track informations
+#image x=160 y=560,5 sensor=program program="dcop amarok player coverImage" interval=1000
+text x=20 y=560 sensor=program program="dcop amarok player title" interval=1000
+text x=20 y=575 sensor=program program="dcop amarok player artist" interval=1000
+text x=20 y=590 sensor=program program="dcop amarok player album" interval=1000
+text x=20 y=605 sensor=program program="dcop amarok player currentTime" interval=1000
+text x=55 y=605 value="/"
+text x=62 y=605 sensor=program program="dcop amarok player totalTime" interval=1000 program="/home/`whoami`/.superkaramba/amarokTime.sh" interval=1000
