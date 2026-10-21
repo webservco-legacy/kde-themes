@@ -1,0 +1,9 @@
+# Line endings: LF in the repository and in working copies
+* text eol=lf
+
+# Binary files: no line-ending conversion
+*.avi binary
+*.jpg binary
+*.kth binary
+*.ogg binary
+*.png binary
